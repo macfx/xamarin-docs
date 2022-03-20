@@ -280,6 +280,33 @@ At this point, if the application is run and the button clicked a couple of time
 
 ![An example app run](xibless-ui-images/run01.png "An example app run")
 
+If the application doesn't show the main window, then make the following changes to the Main.cs:
+
+```csharp
+
+using AppKit;
+
+namespace MacXibless
+{
+  static class MainClass
+  {
+    static void Main(string[] args)
+    {
+      NSApplication.Init();
+
+      var app = NSApplication.SharedApplication;
+      var appDel = new AppDelegate();
+      app.Delegate = appDel;
+
+      NSApplication.Main(args);
+    }
+  }
+}
+
+```
+
+This ensures that you DidFinishLaunching(NSNotification notification) gets called and the main window controller is instantiated.
+
 ## Adding a code only window
 
 If we want to add a code only, xibless window to an existing Xamarin.Mac application, right-click on the project in the **Solution Pad** and select **Add** > **New File..**. In the **New File** dialog choose **Xamarin.Mac** > **Cocoa Window with Controller**, as illustrated below:
